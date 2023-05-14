@@ -2,7 +2,9 @@
 
 The physical circuit assembled is shown by the figure below!
 
-![Alt text](Img/ckt.png)
+<p align="center">
+  <img src="Img/ckt.png" width="90%" />
+</p>
 
 ### Hardware configuration
 - PIC16F877A 40 pins;
@@ -15,7 +17,9 @@ The physical circuit assembled is shown by the figure below!
 
 An Assembly source code was developed to establish a communication protocol between the sensor module DHT22 (AM2302) and the PIC16F877A Microchip microcontroller. The reading values are shown on an LCD display, connected to microcontroller by 8 bit connection, as shown by the figure below.
 
-![Alt text](Img/proteus.png)
+<p align="center">
+  <img src="Img/proteus.png" width="95%" />
+</p>
 ___
 ### DHT22 Data Reading
 
@@ -32,4 +36,6 @@ The figure below shows the bit sequence sent by the sensor, as well as the divis
 
 The developed program reads the sent bytes through the logic represented by the flowchart in the figure below.
 
-![Alt text](Img/flow.png)
+<p align="center">
+  <img src="Img/flow.png" width="50%" />
+</p>
