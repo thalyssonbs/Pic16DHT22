@@ -1,3 +1,15 @@
+;---------------------------------------------------------------------------;
+;                          THALYSSON SANTOS                                 ;
+;           Federal University of Rondônia Foundation - UNIR                ;
+;                       Porto Velho - RO. BRAZIL                            ;
+;                                                                           ;
+;   The Assembly source code below was developed to establish a             ;
+;   communication protocol between the sensor module DHT22 (AM2302)         ;
+;   and the PIC16F877A Microchip microcontroller. The reading values are    ;
+;   processed, formatted and displayed on an LCD display, connected to      ;
+;   microcontroller PIC16F877A throught an 8 bit connection.                ;
+;                                                                           ;
+;---------------------------------------------------------------------------;
 
 ; PIC16F877A Configuration Bit Settings
 
@@ -9,39 +21,39 @@
 ; __config 0x3F3A
  __CONFIG _FOSC_HS & _WDTE_OFF & _PWRTE_OFF & _BOREN_OFF & _LVP_OFF & _CPD_OFF & _WRT_OFF & _CP_OFF
 
-#DEFINE	    BANCO0	    BCF STATUS,RP0	;   Acessa o Banco 0
-#DEFINE	    BANCO1	    BSF STATUS,RP0	;   Acessa o Banco 1
-#DEFINE	    COMANDAR_LCD    BCF PORTB,RB0	;   Enviar comandos ao LCD
-#DEFINE	    ESCREVER_LCD    BSF PORTB,RB0	;   Enviar caracteres ao LCD
-#DEFINE	    ENABLE		PORTB,RB1	;   Conexão com o pino EN do LCD
-#DEFINE	    LCD			PORTD		;   Conexão de dados com o LCD
-#DEFINE	    DHT_PIN		PORTB,RB5	;   Conexão de dados com o DHT
-#DEFINE	    DHT_DIR		TRISB,5		;   Direção de dados com o DHT
+#DEFINE	    BANCO0	    BCF STATUS,RP0	;   Access to bank 0
+#DEFINE	    BANCO1	    BSF STATUS,RP0	;   Access to bank 1
+#DEFINE	    COMANDAR_LCD    BCF PORTB,RB0	;   Send commands to LCD
+#DEFINE	    ESCREVER_LCD    BSF PORTB,RB0	;   Send data to show on LCD
+#DEFINE	    ENABLE		PORTB,RB1	;   EN pin from LCD
+#DEFINE	    LCD			PORTD		;   8-bit connection with LCD
+#DEFINE	    DHT_PIN		PORTB,RB5	;   Data pin to DHT sensor
+#DEFINE	    DHT_DIR		TRISB,5		;   Data direction of DHT pin
 
 ;--------------------------------------------------------;
 ;********************************************************;
-;------------ REGISTRADORES DE USO GERAL ----------------;
+;------------ GENERAL PURPOSE REGISTERS -----------------;
 CBLOCK	0x20
 ;-----DELAY_MS------;
     TEMPO0	    ;	(0x20)
     TEMPO1	    ;	(0x21)
 ;-------------------;
-;---Bytes do DHT----;
-    UMID_HI	    ;	(0x22) MSB da leitura de Umidade
-    UMID_LO	    ;	(0x23) LSB da leitura de Umidade
-    TEMP_HI	    ;	(0x24) MSB da leitura de Temperatura
-    TEMP_LO	    ;	(0x25) LSB da leitura de Temperatura
+;---Reading Bytes---;
+    UMID_HI	    ;	(0x22) Relative Humidity MSB
+    UMID_LO	    ;	(0x23) Relative Humidity LSB
+    TEMP_HI	    ;	(0x24) Temperature MSB
+    TEMP_LO	    ;	(0x25) Temperature LSB
 ;-------------------;
-;----Leitura DHT----;
-    CONTADOR	    ;	(0x26) Contador para leitura serial
-    BYTE_DHT	    ;	(0x27) Byte usado durante a leitura
-    CHKS	    ;	(0x28) Checksum para verificação de erros
+;--General Reading--;
+    CONTADOR	    ;	(0x26) Bit reading counter
+    BYTE_DHT	    ;	(0x27) Reading byte
+    CHKS	    ;	(0x28) Checksum byte
 ;-------------------;
-;-Rotina de Divisão-;
-    QHI		    ;	(0x29) MSB do quociente da divisão
-    QLO		    ;	(0x2A) LSB do quociente da divisão
-    DDHI	    ;	(0x2B) MSB do dividendo da divisão
-    DDLO	    ;	(0x2C) LSB do dividendo/resto da divisão
+;-Division Routine--;
+    QHI		    ;	(0x29) Division quotient MSB
+    QLO		    ;	(0x2A) Division quotient LSB
+    DDHI	    ;	(0x2B) Division dividend MSB
+    DDLO	    ;	(0x2C) Division dividend LSB
 ;-------------------;
 ;--Dígitos Finais---;
     UMID_CEN	    ;	(0x2D) Centena da Umidade Relativa

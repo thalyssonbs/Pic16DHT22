@@ -15,7 +15,7 @@ The physical circuit assembled is shown by the figure below!
 - TIMER0 Module;
 - TIMER1 Module;
 
-An Assembly source code was developed to establish a communication protocol between the sensor module DHT22 (AM2302) and the PIC16F877A Microchip microcontroller. The reading values are shown on an LCD display, connected to microcontroller by 8 bit connection, as shown by the figure below.
+An Assembly source code was developed to establish a communication protocol between the sensor module DHT22 (AM2302) and the PIC16F877A Microchip microcontroller. The reading values are displayed on an LCD display, connected to the microcontroller throught an 8 bit connection, as shown by the figure below.
 
 <p align="center">
   <img src="Img/proteus.png" width="95%" />
@@ -23,7 +23,7 @@ An Assembly source code was developed to establish a communication protocol betw
 
 ### DHT22 Data Reading
 
-The DHT22 module sensor send the reading values after a 18ms low level signal sent by the microcontroller. The figure below shows the start signal sent by the microcontroller (orange line), followed by sensor response (blue line), which starts with two alternating bits of 80us each.
+The DHT22 module sensor sends the reading values after a 18ms low level signal sent by the microcontroller. The figure below shows the start signal sent by the microcontroller (orange line), followed by sensor response (blue line), which starts with two alternating bits of 80us each.
 
 ![Alt text](Img/serial1.png)
 
