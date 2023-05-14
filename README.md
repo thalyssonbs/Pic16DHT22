@@ -1,4 +1,4 @@
-## Assembly code for serial communication between PIC16F877A and DHT22
+## Assembly instructions for serial communication between PIC16F877A and DHT22
 
 The physical circuit assembled is shown by the figure below!
 
