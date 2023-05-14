@@ -123,7 +123,7 @@ LCD_CONFIG
     MOVLW   H'80'	    ;	Comando [1000 0000]
     CALL    ESCREVE	    ;	Posição (1,1)
 ;---------------------------;
-    CALL    MSG_INICIO	    ;	Imprime uma mensagem de boas vindas por 3S
+    CALL    MSG_INICIO	    ;	Imprime uma mensagem de boas vindas por 3s
     CALL    TEXTOS	    ;	Imprime os textos padrão
     GOTO    LOOP	    ;
 
@@ -174,11 +174,6 @@ LOOP
     CALL    DELAY_500MS	    ;
     CALL    DELAY_500MS	    ;
     CALL    DELAY_500MS	    ;
-    CALL    DELAY_500MS	    ;
-    CALL    DELAY_500MS	    ;
-    CALL    DELAY_500MS	    ;
-    CALL    DELAY_500MS	    ;
-    CALL    MSG_INICIO	    ;
     GOTO    LOOP	    ;	Reinicia o laço
 ;---------------------------;
 
@@ -678,9 +673,8 @@ MSG_INICIO
     CALL    DELAY_500MS	    ;
     CALL    DELAY_500MS	    ;
     CALL    DELAY_500MS	    ;
-    CALL    TEXTOS
-    ;CALL    DELAY_500MS	    ;
-    ;CALL    DELAY_500MS	    ;
+    CALL    DELAY_500MS	    ;
+    CALL    DELAY_500MS	    ;
     RETURN		    ;
 ;--------------------------------------------------------;
 ;********************************************************;
