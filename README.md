@@ -5,7 +5,7 @@ The physical circuit assembled is shown by the figure below!
 ### Hardware configuration
 - PIC16F877A 40 pins;
 - LCD Display 16x2 8 bit connection;
-- 4 MHz oscilator crystal;
+- 4 MHz oscillator crystal;
 - 22 pF ceramic disc capacitors.
 ### PIC Peripheral features used in this work
 - TIMER0 Module;
@@ -23,3 +23,8 @@ After that, the reading values are sent by the sensor as 16-bits numbers in a 40
 
 The figure below shows the bit sequence sent by the sensor, as well as the division of bytes.
 ![Alt text](Img/serial2.png)
+
+### Reading Sequence
+
+The developed program reads the sent bytes through the logic represented by the flowchart in the figure below.
+![Alt text](Img/flow.png)
