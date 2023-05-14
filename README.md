@@ -20,7 +20,7 @@ An Assembly source code was developed to establish a communication protocol betw
 <p align="center">
   <img src="Img/proteus.png" width="95%" />
 </p>
-___
+
 ### DHT22 Data Reading
 
 The DHT22 module sensor send the reading values after a 18ms low level signal sent by the microcontroller. The figure below shows the start signal sent by the microcontroller (orange line), followed by sensor response (blue line), which starts with two alternating bits of 80us each.
