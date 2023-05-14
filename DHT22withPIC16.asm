@@ -13,10 +13,10 @@
 #DEFINE	    BANCO1	    BSF STATUS,RP0	;   Acessa o Banco 1
 #DEFINE	    COMANDAR_LCD    BCF PORTB,RB0	;   Enviar comandos ao LCD
 #DEFINE	    ESCREVER_LCD    BSF PORTB,RB0	;   Enviar caracteres ao LCD
-#DEFINE	    ENABLE		PORTB,RB1	;   Conex„o com o pino EN do LCD
-#DEFINE	    LCD			PORTD		;   Conex„o de dados com o LCD
-#DEFINE	    DHT_PIN		PORTB,RB5	;   Conex„o de dados com o DHT
-#DEFINE	    DHT_DIR		TRISB,5		;   DireÁ„o de dados com o DHT
+#DEFINE	    ENABLE		PORTB,RB1	;   Conex√£o com o pino EN do LCD
+#DEFINE	    LCD			PORTD		;   Conex√£o de dados com o LCD
+#DEFINE	    DHT_PIN		PORTB,RB5	;   Conex√£o de dados com o DHT
+#DEFINE	    DHT_DIR		TRISB,5		;   Dire√ß√£o de dados com o DHT
 
 ;--------------------------------------------------------;
 ;********************************************************;
@@ -35,15 +35,15 @@ CBLOCK	0x20
 ;----Leitura DHT----;
     CONTADOR	    ;	(0x26) Contador para leitura serial
     BYTE_DHT	    ;	(0x27) Byte usado durante a leitura
-    CHKS	    ;	(0x28) Checksum para verificaÁ„o de erros
+    CHKS	    ;	(0x28) Checksum para verifica√ß√£o de erros
 ;-------------------;
-;-Rotina de Divis„o-;
-    QHI		    ;	(0x29) MSB do quociente da divis„o
-    QLO		    ;	(0x2A) LSB do quociente da divis„o
-    DDHI	    ;	(0x2B) MSB do dividendo da divis„o
-    DDLO	    ;	(0x2C) LSB do dividendo/resto da divis„o
+;-Rotina de Divis√£o-;
+    QHI		    ;	(0x29) MSB do quociente da divis√£o
+    QLO		    ;	(0x2A) LSB do quociente da divis√£o
+    DDHI	    ;	(0x2B) MSB do dividendo da divis√£o
+    DDLO	    ;	(0x2C) LSB do dividendo/resto da divis√£o
 ;-------------------;
-;--DÌgitos Finais---;
+;--D√≠gitos Finais---;
     UMID_CEN	    ;	(0x2D) Centena da Umidade Relativa
     UMID_DEZ	    ;	(0x2E) Dezena da Umidade Relativa
     UMID_UNI	    ;	(0x2F) Unidade da Umidade Relativa
@@ -66,29 +66,29 @@ GOTO SETUP
 ;------------ CONFIGURACOES DO PROGRAMA -----------------;
 SETUP
     BANCO1		    ;
-    CLRF    TRISD	    ;	Configura PORTD inteiro como saÌda
-    BCF	    TRISB,RB0	    ;	Configura o bit 0 de PORTB como saÌda
-    BCF	    TRISB,RB1	    ;	Configura o bit 1 de PORTB como saÌda
+    CLRF    TRISD	    ;	Configura PORTD inteiro como sa√≠da
+    BCF	    TRISB,RB0	    ;	Configura o bit 0 de PORTB como sa√≠da
+    BCF	    TRISB,RB1	    ;	Configura o bit 1 de PORTB como sa√≠da
 ;-----Configura o TIMER0----;
-    MOVLW   H'0F'	    ;	ConfiguraÁ„o [0000 1111]
+    MOVLW   H'0F'	    ;	Configura√ß√£o [0000 1111]
 			    ;	<5> Contagem dos pulsos de Clock
 			    ;	<4> Incremento pela borda de descida
-			    ;	<3> PrÈ-escalador atribuÌdo ao WDT
+			    ;	<3> Pr√©-escalador atribu√≠do ao WDT
     MOVWF   OPTION_REG	    ;
 ;---------------------------;
     BANCO0		    ;
 ;-----Configura o TIMER1----;
-    MOVLW   H'30'	    ;	ConfiguraÁ„o [0011 0000]
-			    ;	<5-4> PrÈ-escalador 1:8
+    MOVLW   H'30'	    ;	Configura√ß√£o [0011 0000]
+			    ;	<5-4> Pr√©-escalador 1:8
 			    ;	<3>   Oscilador desligado
 			    ;	<2>   Sincronizado com clock externo
 			    ;	<1>   Clock interno
 			    ;	<0>   TIMER1 parado
     MOVWF   T1CON	    ;
 ;---------------------------;
-    CLRF    PORTD	    ;	Limpa toda a saÌda PORTD
-    CALL    DELAY_500MS	    ;	Aguarda 500ms para energizaÁ„o
-    GOTO    LCD_CONFIG	    ;	Inicia a configuraÁ„o do display LCD
+    CLRF    PORTD	    ;	Limpa toda a sa√≠da PORTD
+    CALL    DELAY_500MS	    ;	Aguarda 500ms para energiza√ß√£o
+    GOTO    LCD_CONFIG	    ;	Inicia a configura√ß√£o do display LCD
 
 ;--------------------------------------------------------;
 ;********************************************************;
@@ -104,14 +104,14 @@ LCD_CONFIG
 ;---------------------------;
 ;------Modo de Entrada------;
     MOVLW   H'06'	    ;	Comando [0000 0110]
-			    ;	<1> Cursor move-se ‡ direita
+			    ;	<1> Cursor move-se √† direita
 			    ;	<0> Deslocamento do display OFF
     CALL    ESCREVE	    ;
 ;---------------------------;
 ;------Display ON/OFF-------;
     MOVLW   H'0C'	    ;	Comando [0000 1100]
 			    ;	<2> Display ligado
-			    ;	<1> Cursor invisÌvel
+			    ;	<1> Cursor invis√≠vel
 			    ;	<0> Cursor intermitente OFF
     CALL    ESCREVE	    ;
 ;---------------------------;
@@ -119,54 +119,54 @@ LCD_CONFIG
     MOVLW   H'01'	    ;	Comando [0000 0001]
     CALL    ESCREVE	    ;
 ;---------------------------;
-;-----PosiÁ„o do Cursor-----;
+;-----Posi√ß√£o do Cursor-----;
     MOVLW   H'80'	    ;	Comando [1000 0000]
-    CALL    ESCREVE	    ;	PosiÁ„o (1,1)
+    CALL    ESCREVE	    ;	Posi√ß√£o (1,1)
 ;---------------------------;
     CALL    MSG_INICIO	    ;	Imprime uma mensagem de boas vindas por 3S
-    CALL    TEXTOS	    ;	Imprime os textos padr„o
+    CALL    TEXTOS	    ;	Imprime os textos padr√£o
     GOTO    LOOP	    ;
 
 ;--------------------------------------------------------;
 ;********************************************************;
-;-------------------- LA«O INFINITO ---------------------;
+;-------------------- LA√áO INFINITO ---------------------;
 LOOP
-    CALL    LER_DHT	    ;	LÍ e formata os dados do DHT
+    CALL    LER_DHT	    ;	L√™ e formata os dados do DHT
 ;---------------------------;
 ;-- Cursor na pos (1,11) ---;
     COMANDAR_LCD	    ;	Prepara para enviar comandos ao LCD
-    MOVLW   H'8B'	    ;	Comando LCD -> Cursor na posiÁ„o (1,11)
+    MOVLW   H'8B'	    ;	Comando LCD -> Cursor na posi√ß√£o (1,11)
     CALL    ESCREVE	    ;	Envia o comando ao LCD
     ESCREVER_LCD	    ;	Prepara para enviar caracteres ao LCD
 ;---------------------------;
 ;-- Escreve a Temperatura --;
     MOVF    TEMP_SIN,W	    ;	Coleta o sinal da temperatura lida (+/-)
     CALL    ESCREVE	    ;	Envia o caractere ao LCD (WREG -> LCD)
-    MOVF    TEMP_DEZ,W	    ;	Coleta o primeiro dÌgito da temperatura (dezena)
+    MOVF    TEMP_DEZ,W	    ;	Coleta o primeiro d√≠gito da temperatura (dezena)
     CALL    ESCREVE	    ;	WREG -> LCD
-    MOVF    TEMP_UNI,W	    ;	Coleta o segundo dÌgito da temperatura (unidade)
+    MOVF    TEMP_UNI,W	    ;	Coleta o segundo d√≠gito da temperatura (unidade)
     CALL    ESCREVE	    ;	WREG -> LCD
     MOVLW   ','		    ;	Coleta o caractere ','
     CALL    ESCREVE	    ;	WREG -> LCD
-    MOVF    TEMP_DEC,W	    ;	Coleta o terceiro dÌgito da temperatura (decimal)
+    MOVF    TEMP_DEC,W	    ;	Coleta o terceiro d√≠gito da temperatura (decimal)
     CALL    ESCREVE	    ;	WREG -> LCD
 ;---------------------------;
 ;-- Cursor na pos (2,11) ---;
     COMANDAR_LCD	    ;	Prepara para enviar comandos ao LCD
-    MOVLW   H'CB'	    ;	Comando LCD -> Cursor na posiÁ„o (2,11)
+    MOVLW   H'CB'	    ;	Comando LCD -> Cursor na posi√ß√£o (2,11)
     CALL    ESCREVE	    ;	Envia o comando ao LCD
     ESCREVER_LCD	    ;	Prepara para enviar caracteres ao LCD
 ;---------------------------;
 ;---- Escreve a Umidade ----;
-    MOVF    UMID_CEN,W	    ;	Coleta o primeiro dÌgito da umidade (centena)
+    MOVF    UMID_CEN,W	    ;	Coleta o primeiro d√≠gito da umidade (centena)
     CALL    ESCREVE	    ;	WREG -> LCD
-    MOVF    UMID_DEZ,W	    ;	Coleta o segundo dÌgito da umidade (dezena)
+    MOVF    UMID_DEZ,W	    ;	Coleta o segundo d√≠gito da umidade (dezena)
     CALL    ESCREVE	    ;	WREG -> LCD
-    MOVF    UMID_UNI,W	    ;	Coleta o terceiro dÌgito da umidade (unidade)
+    MOVF    UMID_UNI,W	    ;	Coleta o terceiro d√≠gito da umidade (unidade)
     CALL    ESCREVE	    ;	WREG -> LCD
     MOVLW   ','		    ;	Coleta o caractere ','
     CALL    ESCREVE	    ;	WREG -> LCD
-    MOVF    UMID_DEC,W	    ;	Coleta o ultimo dÌgito da umidade (decimal)
+    MOVF    UMID_DEC,W	    ;	Coleta o ultimo d√≠gito da umidade (decimal)
     CALL    ESCREVE	    ;	WREG -> LCD
 ;---------------------------;
 ;--- Aguarda 2 segundos ----;
@@ -179,7 +179,7 @@ LOOP
     CALL    DELAY_500MS	    ;
     CALL    DELAY_500MS	    ;
     CALL    MSG_INICIO	    ;
-    GOTO    LOOP	    ;	Reinicia o laÁo
+    GOTO    LOOP	    ;	Reinicia o la√ßo
 ;---------------------------;
 
 ;--------------------------------------------------------;
@@ -188,23 +188,23 @@ LOOP
 LER_DHT
     CALL    INICIA_TRANSMISSAO
 ;---------------------------;
-    CALL    LER_BYTE	    ;	LÍ os MSB da Umidade Relativa
+    CALL    LER_BYTE	    ;	L√™ os MSB da Umidade Relativa
     MOVWF   UMID_HI	    ;
 ;---------------------------;
-    CALL    LER_BYTE	    ;	LÍ os LSB da Umidade Relativa
+    CALL    LER_BYTE	    ;	L√™ os LSB da Umidade Relativa
     MOVWF   UMID_LO	    ;
 ;---------------------------;
-    CALL    LER_BYTE	    ;	LÍ os MSB da Temperatura
+    CALL    LER_BYTE	    ;	L√™ os MSB da Temperatura
     MOVWF   TEMP_HI	    ;
 ;---------------------------;
-    CALL    LER_BYTE	    ;	LÍ os LSB da Temperatura
+    CALL    LER_BYTE	    ;	L√™ os LSB da Temperatura
     MOVWF   TEMP_LO	    ;
 ;---------------------------;
-    CALL    LER_BYTE	    ;	LÍ o byte de verificaÁ„o
+    CALL    LER_BYTE	    ;	L√™ o byte de verifica√ß√£o
     MOVWF   CHKS	    ;
 ;---------------------------;
-    CALL    CHECKSUM	    ;	Executa a verificaÁ„o de erros
-    CALL    FORMATAR	    ;	Formata os valores para exibiÁ„o
+    CALL    CHECKSUM	    ;	Executa a verifica√ß√£o de erros
+    CALL    FORMATAR	    ;	Formata os valores para exibi√ß√£o
     RETURN		    ;
 
 ;--------------------------------------------------------;
@@ -226,11 +226,11 @@ INICIA_TRANSMISSAO
     CALL    TIMEOUT	    ;	Inicia o Timeout de 100uS
 ;-- Aguarda uma resposta ---;
 ESPERA_RESPOSTA
-    BTFSS   INTCON,2	    ;	Verifica se j· se se passaram 100uS
-    GOTO    $+2		    ;	N„o! Pula duas instruÁıes adiante
+    BTFSS   INTCON,2	    ;	Verifica se j√° se se passaram 100uS
+    GOTO    $+2		    ;	N√£o! Pula duas instru√ß√µes adiante
     GOTO    MSG_TIMEOUT	    ;	Sim! Exibe a mensagem de Timeout
-    BTFSC   DHT_PIN	    ;	Verifica se a resposta do DHT È 0
-    GOTO    ESPERA_RESPOSTA ;	N„o! Continua aguardando
+    BTFSC   DHT_PIN	    ;	Verifica se a resposta do DHT √© 0
+    GOTO    ESPERA_RESPOSTA ;	N√£o! Continua aguardando
     MOVLW   .115	    ;
     CALL    DELAY_US	    ;	Sim! Aguarda 140uS
     RETURN		    ;
@@ -239,7 +239,7 @@ ESPERA_RESPOSTA
 ;********************************************************;
 ;----------------- INICIA O TIMEOUT ---------------------;
 TIMEOUT
-    BCF	    INTCON,2	    ;	Inicia o flag de interrupÁ„o do TIMER0
+    BCF	    INTCON,2	    ;	Inicia o flag de interrup√ß√£o do TIMER0
     MOVLW   .156	    ;	Aproximadamente 100uS
     MOVWF   TMR0	    ;	Envia o valor inicial para o TIMER0
     RETURN
@@ -253,31 +253,31 @@ LER_BYTE
     CLRF    BYTE_DHT	    ;	Limpa o ultimo valor lido
 LEITURA
     CALL    TIMEOUT	    ;	Inicia o Timeout
-    DECFSZ  CONTADOR	    ;	Decrementa o contador e testa È 0
-    GOTO    NOVO_BIT	    ;	N„o! Inicia nova leitura
+    DECFSZ  CONTADOR	    ;	Decrementa o contador e testa √© 0
+    GOTO    NOVO_BIT	    ;	N√£o! Inicia nova leitura
     MOVF    BYTE_DHT,W	    ;	Sim! coleta o byte lido e grava em WREG
     RETURN		    ;	Finaliza e retorna com BYTE_DHT -> WREG
 NOVO_BIT
-    RLF	    BYTE_DHT,1	    ;	Desloca os bits ‡ esquerda
+    RLF	    BYTE_DHT,1	    ;	Desloca os bits √† esquerda
     BTFSS   INTCON,2	    ;	Verifica se o Timeout transborda
-    GOTO    $+2		    ;	N„o! AvanÁa duas instruÁıes
+    GOTO    $+2		    ;	N√£o! Avan√ßa duas instru√ß√µes
     GOTO    MSG_TIMEOUT	    ;	Sim! Exibe a mensagem de Timeout
     BTFSC   DHT_PIN	    ;	Aguarda um bit 0 do DHT
     GOTO    $-1		    ;	
-    BTFSS   DHT_PIN	    ;	Aguarda o inÌcio do bit de dado
+    BTFSS   DHT_PIN	    ;	Aguarda o in√≠cio do bit de dado
     GOTO    $-1		    ;
     MOVLW   .240	    ;	Aguarda 30uS
     CALL    DELAY_US	    ;
-    BTFSC   DHT_PIN	    ;	Testa se o bit enviado pelo DHT È 0 
-    GOTO    BIT_HIGH	    ;	N„o! Pula para registrar um bit 1
+    BTFSC   DHT_PIN	    ;	Testa se o bit enviado pelo DHT √© 0 
+    GOTO    BIT_HIGH	    ;	N√£o! Pula para registrar um bit 1
 BIT_LOW
     BCF	    BYTE_DHT,0	    ;	Sim! Registra um bit 0
-    GOTO    LEITURA	    ;	Reinicia uma nova leitura para o prÛximo bit
+    GOTO    LEITURA	    ;	Reinicia uma nova leitura para o pr√≥ximo bit
 BIT_HIGH
     BSF	    BYTE_DHT,0	    ;	Registra um bit 1
     BTFSC   DHT_PIN	    ;	Aguarda um bit 0 para iniciar
     GOTO    $-1		    ;	uma nova leitura
-    GOTO    LEITURA	    ;	Reinicia uma nova leitura para o prÛximo bit
+    GOTO    LEITURA	    ;	Reinicia uma nova leitura para o pr√≥ximo bit
 
 ;--------------------------------------------------------;
 ;********************************************************;
@@ -288,8 +288,8 @@ CHECKSUM
     ADDWF   TEMP_HI,W	    ;	Soma os MSB da temperatura com WREG
     ADDWF   TEMP_LO,W	    ;	Soma os LSB da temperatura com WREG
     SUBWF   CHKS,W	    ;	Subtrai o byte CHKS de WREG
-    BTFSS   STATUS,Z	    ;	Verifica se o resultado da subtraÁ„o È zero
-    GOTO    MSG_ERRO	    ;	N„o! Exibe uma mensagem de erro de comunicaÁ„o
+    BTFSS   STATUS,Z	    ;	Verifica se o resultado da subtra√ß√£o √© zero
+    GOTO    MSG_ERRO	    ;	N√£o! Exibe uma mensagem de erro de comunica√ß√£o
     RETURN		    ;	Sim! Retorna
 
 ;--------------------------------------------------------;
@@ -297,93 +297,93 @@ CHECKSUM
 ;------------ FORMATAR VALORES PARA EXIBICAO ------------;
 FORMATAR
 ;-----Formatar Umidade------;
-;--Primeira divis„o por 10--;
+;--Primeira divis√£o por 10--;
 ;--------( 000,X )----------;
     MOVF    UMID_HI,W	    ;	UMID_HI -> WREG
     MOVWF   DDHI	    ;	Move os MSB da umidade para os MSB do dividendo
     MOVF    UMID_LO,W	    ;	UMID_LO -> WREG
     MOVWF   DDLO	    ;	Move os LSB da umidade para os LSB do dividendo
-    CALL    DIVIDIR	    ;	Inicia a divis„o por 10
-    MOVF    DDLO,W	    ;	Move o resto da divis„o para WREG
+    CALL    DIVIDIR	    ;	Inicia a divis√£o por 10
+    MOVF    DDLO,W	    ;	Move o resto da divis√£o para WREG
     MOVWF   UMID_DEC	    ;	Move o valor de WREG para o decimal da umidade
-    MOVLW   H'30'	    ;	Formata o dÌgito decimal da umidade
+    MOVLW   H'30'	    ;	Formata o d√≠gito decimal da umidade
     IORWF   UMID_DEC,1	    ;	para o formato ASCII (UMID_DEC or 0x30)
 ;---------------------------;
-;--Segunda divis„o por 10---;
+;--Segunda divis√£o por 10---;
 ;--------( 00X,0 )----------;
-    MOVF    QLO,W	    ;	Quociente da Divis„o -> WREG
+    MOVF    QLO,W	    ;	Quociente da Divis√£o -> WREG
     MOVWF   DDLO	    ;	Move o quociente para o novo LSB do dividendo
-    CALL    DIVIDIR	    ;	Inicia uma nova divis„o por 10
-    MOVF    DDLO,W	    ;	Resto da Divis„o -> WREG
-    MOVWF   UMID_UNI	    ;	Move o resto da divis„o para a unidade da Umidade
-    MOVLW   H'30'	    ;	Formata o dÌgito unidade da umidade
+    CALL    DIVIDIR	    ;	Inicia uma nova divis√£o por 10
+    MOVF    DDLO,W	    ;	Resto da Divis√£o -> WREG
+    MOVWF   UMID_UNI	    ;	Move o resto da divis√£o para a unidade da Umidade
+    MOVLW   H'30'	    ;	Formata o d√≠gito unidade da umidade
     IORWF   UMID_UNI	    ;	para o formato ASCII (UMID_UNI or 0x30)
-    MOVF    QLO,W	    ;	Move o quociente da divis„o para WREG
+    MOVF    QLO,W	    ;	Move o quociente da divis√£o para WREG
 ;---------------------------;
 ;-------Verifica se---------;
-;---- a umidade È 100% -----;
-    SUBLW   H'0A'	    ;	Verifica se o quociente È igual a 10
-    BTFSC   STATUS,Z	    ;	indicando que a umidade medida È igual a 100
-    GOTO    CENTENA	    ;	Sim! Configura os dÌgitos de centena e dezena
+;---- a umidade √© 100% -----;
+    SUBLW   H'0A'	    ;	Verifica se o quociente √© igual a 10
+    BTFSC   STATUS,Z	    ;	indicando que a umidade medida √© igual a 100
+    GOTO    CENTENA	    ;	Sim! Configura os d√≠gitos de centena e dezena
 ;--------( 0X0,0 )----------;
-    MOVF    QLO,W	    ;	N„o! Quociente da Divis„o -> WREG
-    MOVWF   UMID_DEZ	    ;	Move o Quociente da divis„o para a dezena da umidade
-    MOVLW   H'30'	    ;	Formata o dÌgito dezena da umidade
+    MOVF    QLO,W	    ;	N√£o! Quociente da Divis√£o -> WREG
+    MOVWF   UMID_DEZ	    ;	Move o Quociente da divis√£o para a dezena da umidade
+    MOVLW   H'30'	    ;	Formata o d√≠gito dezena da umidade
     IORWF   UMID_DEZ,1	    ;	para o formato ASCII (UMID_DEZ or 0x30)
 ;--------( X00,0 )----------;
-    MOVLW   ' '		    ;	Move um espaÁo em branco para WREG
-    MOVWF   UMID_CEN	    ;	Move o espaÁo em branco para a centena da umidade
-    GOTO    TEMPERATURA	    ;	Inicia a formataÁ„o da medida de temperatura
+    MOVLW   ' '		    ;	Move um espa√ßo em branco para WREG
+    MOVWF   UMID_CEN	    ;	Move o espa√ßo em branco para a centena da umidade
+    GOTO    TEMPERATURA	    ;	Inicia a formata√ß√£o da medida de temperatura
 CENTENA
-    MOVLW   H'31'	    ;	Move o dÌgito '1' em formato ASCII para WREG
+    MOVLW   H'31'	    ;	Move o d√≠gito '1' em formato ASCII para WREG
     MOVWF   UMID_CEN	    ;	Move '1' para a centena da umidade
 ;--------( 0X0,0 )----------;
-    MOVLW   H'30'	    ;	Move o dÌgito '0' em formato ASCII para WREG
+    MOVLW   H'30'	    ;	Move o d√≠gito '0' em formato ASCII para WREG
     MOVWF   UMID_DEZ	    ;	Move '0' para a dezena da umidade
 ;---------------------------;
 ;---Formatar Temperatura----;
 TEMPERATURA
-    BTFSC   TEMP_HI,7	    ;	Verifica se a temperatura medida È negativa
+    BTFSC   TEMP_HI,7	    ;	Verifica se a temperatura medida √© negativa
     GOTO    NEGATIVO	    ;	Sim! Configura o sinal negativo da temperatura
-    MOVLW   ' '		    ;	N„o! Move um espaÁo em branco para WREG
-    MOVWF   TEMP_SIN	    ;	Move o espaÁo em branco para o sinal da temperatura
-    GOTO    CALCULAR_TEMP   ;	Inicia a convers„o do valor de temperatura
+    MOVLW   ' '		    ;	N√£o! Move um espa√ßo em branco para WREG
+    MOVWF   TEMP_SIN	    ;	Move o espa√ßo em branco para o sinal da temperatura
+    GOTO    CALCULAR_TEMP   ;	Inicia a convers√£o do valor de temperatura
 NEGATIVO
-    MOVLW   '-'		    ;	Move o sÌmbolo negativo para WREG
-    MOVWF   TEMP_SIN	    ;	Move o sÌmbolo '-' para o sinal da temperatura
+    MOVLW   '-'		    ;	Move o s√≠mbolo negativo para WREG
+    MOVWF   TEMP_SIN	    ;	Move o s√≠mbolo '-' para o sinal da temperatura
 CALCULAR_TEMP
     BCF	    TEMP_HI,7	    ;	Limpa o bit sinalizador negativo da temperatura
 ;---------------------------;
-;--Primeira divis„o por 10--;
+;--Primeira divis√£o por 10--;
 ;---------( 00,X )----------;
     MOVF    TEMP_HI,W	    ;	TEMP_HI -> WREG
     MOVWF   DDHI	    ;	Move os MSB da temperatura para os MSB do dividendo
     MOVF    TEMP_LO,W	    ;	TEMP_LO -> WREG
     MOVWF   DDLO	    ;	Move os LSB da temperatura para os LSB do dividendo
-    CALL    DIVIDIR	    ;	Inicia a divis„o por 10
-    MOVF    DDLO,W	    ;	Resto da Divis„o -> WREG
-    MOVWF   TEMP_DEC	    ;	Move o resto da divis„o para o decimal da temperatura
-    MOVLW   H'30'	    ;	Formata o dÌgito decimal da temperatura
+    CALL    DIVIDIR	    ;	Inicia a divis√£o por 10
+    MOVF    DDLO,W	    ;	Resto da Divis√£o -> WREG
+    MOVWF   TEMP_DEC	    ;	Move o resto da divis√£o para o decimal da temperatura
+    MOVLW   H'30'	    ;	Formata o d√≠gito decimal da temperatura
     IORWF   TEMP_DEC,1	    ;	para o formato ASCII (TEMP_DEC or 0x30)
 ;---------------------------;
-;--Segunda divis„o por 10 --;
+;--Segunda divis√£o por 10 --;
 ;---------( X0,0 )----------;
-    MOVF    QLO,W	    ;	Move o quociente da divis„o para WREG
-    MOVWF   DDLO	    ;	Move WREG para os LSB da nova divis„o
-    CALL    DIVIDIR	    ;	Inicia a divis„o por 10
-    MOVF    QLO,W	    ;	Move o quociente da divis„o para WREG
+    MOVF    QLO,W	    ;	Move o quociente da divis√£o para WREG
+    MOVWF   DDLO	    ;	Move WREG para os LSB da nova divis√£o
+    CALL    DIVIDIR	    ;	Inicia a divis√£o por 10
+    MOVF    QLO,W	    ;	Move o quociente da divis√£o para WREG
     MOVWF   TEMP_DEZ	    ;	Move WREG para a dezena da temperatura
-    MOVLW   H'30'	    ;	Formata o dÌgito de dezena da temperatura
+    MOVLW   H'30'	    ;	Formata o d√≠gito de dezena da temperatura
     IORWF   TEMP_DEZ,1	    ;	para o formato ASCII (TEMP_DEZ or 0x30)
 ;---------( 0X,0 )----------;
-    MOVF    DDLO,W	    ;	Move o resto da divis„o para WREG
+    MOVF    DDLO,W	    ;	Move o resto da divis√£o para WREG
     MOVWF   TEMP_UNI	    ;	Move WREG para a unidade da temperatura
-    MOVLW   H'30'	    ;	Formata o dÌgito da unidade da temperatura
+    MOVLW   H'30'	    ;	Formata o d√≠gito da unidade da temperatura
     IORWF   TEMP_UNI,1	    ;	para o formato ASCII (TEMP_UNI or 0x30)
 ;---------------------------;
     RETURN		    ;	Retorna
 ;--------------------------------------------------------;
-;-------------- DIVIS√O DE 2 BYTES POR 10 ---------------;
+;-------------- DIVIS√ÉO DE 2 BYTES POR 10 ---------------;
 DIVIDIR    
     CLRF    QHI		    ; Limpa os quocientes
     CLRF    QLO		    ;
@@ -426,19 +426,19 @@ DELAY_MS
     MOVWF   TEMPO1	    ;	Move WREG para o TEMPO1
     MOVLW   .250	    ;	Move o decimal 250 para WREG
     MOVWF   TEMPO0	    ;	Move WREG para o TEMPO0
-    NOP			    ;	Sem operaÁ„o
-    DECFSZ  TEMPO0,F	    ;	Decrementa o TEMPO0 e verifica se È 0
-    GOTO    $-2		    ;	N„o! Retrocede duas instruÁıes
-    DECFSZ  TEMPO1,F	    ;	Sim! Decrementa o TEMPO1 e verifica se È 0
-    GOTO    $-4		    ;	N„o! Retrocede quatro instruÁıes
+    NOP			    ;	Sem opera√ß√£o
+    DECFSZ  TEMPO0,F	    ;	Decrementa o TEMPO0 e verifica se √© 0
+    GOTO    $-2		    ;	N√£o! Retrocede duas instru√ß√µes
+    DECFSZ  TEMPO1,F	    ;	Sim! Decrementa o TEMPO1 e verifica se √© 0
+    GOTO    $-4		    ;	N√£o! Retrocede quatro instru√ß√µes
     RETURN		    ;	Retorna
 ;---------------------------;
 ;--Delay de microssegundos--;
 DELAY_US
-    BCF	    INTCON,2	    ;	Restaura o flag de interrupÁ„o do TIMER0
+    BCF	    INTCON,2	    ;	Restaura o flag de interrup√ß√£o do TIMER0
     MOVWF   TMR0	    ;	Move WREG para o TIMER0
     BTFSS   INTCON,2	    ;	Aguarda o transbordamento do TIMER0
-    GOTO    $-1		    ;	N„o! Retrocede uma instruÁ„o
+    GOTO    $-1		    ;	N√£o! Retrocede uma instru√ß√£o
     RETURN		    ;	Sim! Retorna
 ;---------------------------;
 
@@ -451,7 +451,7 @@ ESCREVE
     BSF	    ENABLE	    ;	EN = 1
     MOVWF   LCD		    ;	Move WREG para PORTD
     NOP			    ;	Aguarda um tempo
-    GOTO    $+1		    ;	para a comutaÁ„o das portas
+    GOTO    $+1		    ;	para a comuta√ß√£o das portas
     BCF	    ENABLE	    ;	EN = 0 (Inicia a escrita)
     MOVLW   .1		    ;	Aguarda 1 milissegundos
     CALL    DELAY_MS	    ;	para a escrita no LCD
@@ -462,7 +462,7 @@ MSG_TIMEOUT
     COMANDAR_LCD	    ;
     MOVLW   H'01'	    ;	Limpar display
     CALL    ESCREVE	    ;
-    MOVLW   H'80'	    ;	Cursor na posiÁ„o (1,1)
+    MOVLW   H'80'	    ;	Cursor na posi√ß√£o (1,1)
     CALL    ESCREVE	    ;
     ESCREVER_LCD	    ;
     MOVLW   'D'		    ;
@@ -497,12 +497,12 @@ MSG_TIMEOUT
     GOTO    LOOP	    ;
 ;---------------------------;
 ;-----Mensagem de erro------;
-;------de ComunicaÁ„o-------;
+;------de Comunica√ß√£o-------;
 MSG_ERRO
     COMANDAR_LCD	    ;
     MOVLW   H'01'	    ;	Limpar display
     CALL    ESCREVE	    ;
-    MOVLW   H'80'	    ;	Cursor na posiÁ„o (1,1)
+    MOVLW   H'80'	    ;	Cursor na posi√ß√£o (1,1)
     CALL    ESCREVE	    ;
     ESCREVER_LCD	    ;
     MOVLW   'F'		    ;
@@ -522,7 +522,7 @@ MSG_ERRO
     MOVLW   'A'		    ;
     CALL    ESCREVE	    ;
     COMANDAR_LCD	    ;
-    MOVLW   H'C0'	    ;	Cursor na posiÁ„o (2,1)
+    MOVLW   H'C0'	    ;	Cursor na posi√ß√£o (2,1)
     CALL    ESCREVE	    ;
     ESCREVER_LCD	    ;
     MOVLW   'C'		    ;
@@ -541,9 +541,9 @@ MSG_ERRO
     CALL    ESCREVE	    ;
     MOVLW   'A'		    ;
     CALL    ESCREVE	    ;
-    MOVLW   '«'		    ;
+    MOVLW   '√á'		    ;
     CALL    ESCREVE	    ;
-    MOVLW   '√'		    ;
+    MOVLW   '√É'		    ;
     CALL    ESCREVE	    ;
     MOVLW   'O'		    ;
     CALL    ESCREVE	    ;
@@ -554,12 +554,12 @@ MSG_ERRO
     CALL    TEXTOS	    ;
     GOTO    LOOP	    ;
 ;---------------------------;
-;-------Texto Padr„o--------;
+;-------Texto Padr√£o--------;
 TEXTOS
     COMANDAR_LCD	    ;
     MOVLW   H'01'	    ;	Limpa Display
     CALL    ESCREVE	    ;
-    MOVLW   H'80'	    ;	Cursor na posiÁ„o (1,1)
+    MOVLW   H'80'	    ;	Cursor na posi√ß√£o (1,1)
     CALL    ESCREVE	    ;
     ESCREVER_LCD	    ;
     MOVLW   'T'		    ;
@@ -587,7 +587,7 @@ TEXTOS
     MOVLW   ' '		    ;
     CALL    ESCREVE	    ;
     COMANDAR_LCD	    ;
-    MOVLW   H'C0'	    ;	Cursor na posiÁ„o (2,1)
+    MOVLW   H'C0'	    ;	Cursor na posi√ß√£o (2,1)
     CALL    ESCREVE	    ;
     ESCREVER_LCD	    ;
     MOVLW   'U'		    ;
@@ -611,7 +611,7 @@ MSG_INICIO
     COMANDAR_LCD	    ;
     MOVLW   H'01'	    ;	Limpar Display
     CALL    ESCREVE	    ;
-    MOVLW   H'80'	    ;	Cursor na posiÁ„o (1,1)
+    MOVLW   H'80'	    ;	Cursor na posi√ß√£o (1,1)
     CALL    ESCREVE	    ;
     ESCREVER_LCD	    ;
     MOVLW   ' '		    ;
@@ -639,7 +639,7 @@ MSG_INICIO
     MOVLW   'S'		    ;
     CALL    ESCREVE	    ;
     COMANDAR_LCD	    ;
-    MOVLW   H'C0'	    ;	Cursor na posiÁ„o (2,1)
+    MOVLW   H'C0'	    ;	Cursor na posi√ß√£o (2,1)
     CALL    ESCREVE	    ;
     ESCREVER_LCD	    ;
     MOVLW   'M'		    ;
